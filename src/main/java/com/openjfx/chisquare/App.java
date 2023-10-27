@@ -1,6 +1,7 @@
 package com.openjfx.chisquare;
 
 import javafx.application.Application;
+
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -8,16 +9,20 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-/**
- * JavaFX App
- */
 public class App extends Application {
 
     private static Scene scene;
 
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("primary"), 640, 480);
+        scene = new Scene(loadFXML("primary"), 1280, 720);
+        String css = this.getClass().getResource("/com/openjfx/chisquare/secondary.css").toExternalForm();
+        scene.getStylesheets().add(css);
+        
+        // Checks the Java version and run time version.
+        // In case mismatch, change the version of pom.xml to match fxml runtime version.
+        System.out.println("java.version: " + System.getProperty("java.version"));
+        System.out.println("javafx.runtime.version: " + System.getProperty("javafx.runtime.version"));
         stage.setScene(scene);
         stage.show();
     }
@@ -32,8 +37,6 @@ public class App extends Application {
     }
 
     public static void main(String[] args) {
-        launch();
-        
+        launch();   
     }
-
 }

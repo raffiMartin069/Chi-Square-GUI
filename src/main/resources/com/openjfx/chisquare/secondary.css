@@ -1,4 +1,114 @@
-#text{
-	-fx-font-size: 20px;
-	-fx-font-family: "sans-serif";
+.body{
+	-fx-padding: 5px 5px 5px 5px;
+}
+
+.label{
+	-fx-font-family: 'Segoe UI', "Helvetica", "sans-serif";
+	-fx-font-size: 16px;
+	-fx-padding: 16px 16px 16px 16px;
+}
+
+.check-box{
+	-fx-padding: 0 16px 0 0;
+}
+
+.button{
+	-fx-font-size: 16px;
+	-fx-font-family: 'Segoe UI', "sans-serif";
+	-fx-pref-width: 100%;
+}
+/*=================================================================
+ * Navigation Bar
+===================================================================*/
+#nav_bar{
+	-fx-background-color: #8E75B8;
+}
+
+
+/*=================================================================
+ * Header
+===================================================================*/
+
+#top_vbox{
+	-fx-alignment: center;
+	-fx-font-weight: bold;
+
+}
+
+#page_title{
+	-fx-content-display: center;	
+}
+
+/*=================================================================
+ * User Input
+===================================================================*/
+
+#chi_label {
+	-fx-font-size: 1.5em;
+	-fx-alignment: center-right;
+	-fx-padding: 0 1em 0 0;
+}
+
+#input_box{
+	-fx-pref-width: 450px;
+}
+
+#violet_pane{
+	-fx-background-color: #8E75B8;
+}
+
+#inputField_pane{
+	-fx-pref-height:6em;
+}
+
+#center_box{
+	-fx-alignment: center;
+}
+
+#df_field{
+	-fx-pref-width: 10em;
+}
+
+#df_violetPane{
+	-fx-background-color: #8E75B8;
+	-fx-pref-width: 10em;
+	-fx-translate-y: 0.4em
+}
+
+#degreeOf_FreedomLabel{
+	-fx-font-size: 1.5em;
+	-fx-alignment: center-right;
+	-fx-padding: 1.2em 0.4em 0 0;
+}
+/*=================================================================
+ * Checkbox Container
+===================================================================*/
+
+#checkbox_container{
+	-fx-padding: 1.5em 0 0 0;
+}
+
+#checkbox_container #pValue_box #criticalValue_box #bothValue_box{
+	-fx-padding: 0 1em 0 0;
+}
+/*=================================================================
+ * Button
+===================================================================*/
+
+#generate_btn{
+	-fx-font-size: 1.5em;
+	-fx-pref-width: 15em;
+	-fx-text-fill: #ffffff;
+	-fx-background-color: #8E75B8;
+	-fx-background-radius: 0.5em;
+	-fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0, 0, 5); 
+}
+
+#btn_container{
+	-fx-padding: 5em 0 0 0;
+	-fx-pref-width: 150em;
+}
+
+#generate_btn:pressed{
+	-fx-background-color: #5E4E7B;
 }
