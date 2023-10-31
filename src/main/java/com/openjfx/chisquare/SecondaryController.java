@@ -1,19 +1,37 @@
 package com.openjfx.chisquare;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import com.openjfx.component.Selector;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 
 public class SecondaryController implements Initializable{
 
     @FXML
     private CheckBox bothValue_box;
+    
+    @FXML
+    private ImageView toHome;
+    
+    @FXML
+    private TextField df_field;
+    
+    @FXML
+    private Button generate_btn;
+    
+    @FXML
+    private ImageView clear_inputs;
 
     @FXML
     private Label chi_label;
@@ -30,27 +48,20 @@ public class SecondaryController implements Initializable{
     @FXML
     private Label page_title;
     
-    private void toEnableCheckbox(boolean isTicked, CheckBox ... value) {
-    	// Handles the checkbox logic, method recieves varargs.
-    	for (CheckBox checkBox : value) {
-			checkBox.setDisable(isTicked);
-		}
-    	
-    }
-
+    private static Selector selector = new Selector();
     @FXML
     void toBothValues(ActionEvent event) {
-    	toEnableCheckbox(bothValue_box.isSelected(),pValue_box, criticalValue_box);
+    	selector.toEnableCheckbox(bothValue_box.isSelected(),pValue_box, criticalValue_box);
     }
 
     @FXML
     void toCriticalValue(ActionEvent event) {
-    	toEnableCheckbox(criticalValue_box.isSelected(),pValue_box, bothValue_box);
+    	selector.toEnableCheckbox(criticalValue_box.isSelected(),pValue_box, bothValue_box);
     }
 
     @FXML
     void toPValue(ActionEvent event) {
-    	toEnableCheckbox(pValue_box.isSelected(),bothValue_box, criticalValue_box);
+    	selector.toEnableCheckbox(pValue_box.isSelected(),bothValue_box, criticalValue_box);
     }
 
 	@Override
@@ -58,5 +69,22 @@ public class SecondaryController implements Initializable{
 		// TODO Auto-generated method stub
 		
 	}
+	
+	@FXML
+    void generateChi(ActionEvent event) {
+		
+    }
+	
+	@FXML
+    void toClearInput(MouseEvent event) {
+		input_box.clear();
+		df_field.clear();
+		selector.clearCheckBox(bothValue_box, criticalValue_box, pValue_box);
+    }
+	
+	@FXML
+    void goHome(MouseEvent e) throws IOException {
+		App.setRoot("primary");
+    }
 
 }

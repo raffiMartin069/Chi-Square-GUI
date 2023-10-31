@@ -1,3 +1,6 @@
+/*=================================================================
+ * Base Design
+===================================================================*/
 .body{
 	-fx-padding: 5px 5px 5px 5px;
 }
@@ -101,7 +104,7 @@
 	-fx-text-fill: #ffffff;
 	-fx-background-color: #8E75B8;
 	-fx-background-radius: 0.5em;
-	-fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0, 0, 5); 
+	-fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.6), 10, 0, 0, 6); 
 }
 
 #btn_container{
@@ -111,4 +114,12 @@
 
 #generate_btn:pressed{
 	-fx-background-color: #5E4E7B;
+}
+
+/*=================================================================
+ * Results
+===================================================================*/
+
+#expected_value{
+	-fx-padding: 5em 0 0 0;
 }

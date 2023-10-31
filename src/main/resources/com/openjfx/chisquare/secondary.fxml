@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
@@ -22,6 +24,9 @@
                   <Pane fx:id="df_violetPane" layoutY="39.0" prefHeight="16.0" prefWidth="200.0" AnchorPane.leftAnchor="0.0" />
                   <TextField fx:id="df_field" layoutX="58.0" layoutY="46.0" promptText="e.g. 0.5" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" />
                </children>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
             </AnchorPane>
             <HBox fx:id="checkbox_container" prefHeight="20.0" prefWidth="480.0">
                <children>
@@ -32,18 +37,44 @@
             </HBox>
             <VBox fx:id="btn_container" alignment="TOP_CENTER" prefHeight="0.0" prefWidth="480.0">
                <children>
-                  <Button fx:id="generate_btn" mnemonicParsing="false" text="Generate" />
+                  <Button fx:id="generate_btn" mnemonicParsing="false" onAction="#generateChi" text="Generate" />
                </children>
             </VBox>
          </children>
+         <BorderPane.margin>
+            <Insets top="10.0" />
+         </BorderPane.margin>
       </VBox>
    </center>
    <top>
       <VBox fx:id="top_vbox" alignment="TOP_CENTER" prefHeight="80.0" prefWidth="1280.0" BorderPane.alignment="TOP_CENTER">
          <children>
-            <Pane fx:id="nav_bar" prefHeight="200.0" prefWidth="200.0" />
+            <Pane fx:id="nav_bar" prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <HBox prefHeight="40.0" prefWidth="1280.0">
+                     <children>
+                        <AnchorPane prefHeight="200.0" prefWidth="1280.0">
+                           <children>
+                              <ImageView fx:id="toHome" fitHeight="40.0" fitWidth="80.0" layoutX="560.0" layoutY="2.0" onMouseClicked="#goHome" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@img/2.png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fx:id="clear_inputs" fitHeight="40.0" fitWidth="80.0" layoutX="640.0" layoutY="1.0" onMouseClicked="#toClearInput" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@img/3.png" />
+                                 </image>
+                              </ImageView>
+                           </children>
+                        </AnchorPane>
+                     </children>
+                  </HBox>
+               </children></Pane>
             <Label fx:id="page_title" text="Chi Square Test of Independence" />
          </children>
+         <padding>
+            <Insets bottom="-10.0" />
+         </padding>
       </VBox>
    </top>
    <right>
@@ -55,6 +86,9 @@
             <Label fx:id="chi_label" text="Observable Value" />
             <Label fx:id="degreeOf_FreedomLabel" layoutX="253.0" layoutY="10.0" text="Degree of Freedon" />
          </children>
+         <BorderPane.margin>
+            <Insets top="10.0" />
+         </BorderPane.margin>
       </VBox>
    </left>
    <bottom>
@@ -62,21 +96,21 @@
          <left>
             <VBox alignment="TOP_RIGHT" prefHeight="348.0" prefWidth="400.0" BorderPane.alignment="CENTER">
                <children>
-                  <Label text="Expected Value:" textAlignment="CENTER" />
-                  <Label layoutX="10.0" layoutY="10.0" text="Frequency:" textAlignment="CENTER" />
-                  <Label layoutX="10.0" layoutY="61.0" text="Chi-Square Test:" textAlignment="CENTER" />
-                  <Label layoutX="10.0" layoutY="163.0" text="P-Value:" textAlignment="CENTER" />
-                  <Label layoutX="10.0" layoutY="163.0" text="Critical Value:" textAlignment="CENTER" />
+                  <Label fx:id="expected_value" text="Expected Value:" textAlignment="CENTER" />
+                  <Label fx:id="frequency" layoutX="10.0" layoutY="10.0" text="Frequency:" textAlignment="CENTER" />
+                  <Label fx:id="chiSquare_value" layoutX="10.0" layoutY="61.0" text="Chi-Square Test:" textAlignment="CENTER" />
+                  <Label fx:id="pValue" layoutX="10.0" layoutY="163.0" text="P-Value:" textAlignment="CENTER" />
+                  <Label fx:id="criticalValue" layoutX="10.0" layoutY="163.0" text="Critical Value:" textAlignment="CENTER" />
                </children>
             </VBox>
          </left>
          <center>
-            <VBox prefHeight="87.0" prefWidth="1280.0" BorderPane.alignment="CENTER" />
+            <VBox prefHeight="435.0" prefWidth="396.0" BorderPane.alignment="CENTER" />
          </center>
          <right>
-            <HBox alignment="CENTER_LEFT" prefHeight="435.0" prefWidth="511.0" BorderPane.alignment="CENTER">
+            <HBox fx:id="img_container" alignment="CENTER_LEFT" prefHeight="435.0" prefWidth="400.0" BorderPane.alignment="CENTER">
                <children>
-                  <ImageView fx:id="pValue_img" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="pValue_img" fitHeight="300.0" fitWidth="358.0" pickOnBounds="true" preserveRatio="true" />
                </children>
             </HBox>
          </right>

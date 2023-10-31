@@ -1,7 +1,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-	<!-- 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 (token)-->
+
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.openjfx</groupId>
 	<artifactId>chisquare</artifactId>
@@ -16,8 +16,8 @@
 	</properties>
 
 	<dependencies>
-		<!--
-		https://mvnrepository.com/artifact/at.bestsolution.efxclipse.rt/org.eclipse.fx.target.feature -->
+		<!--https://mvnrepository.com/artifact/at.bestsolution.efxclipse.rt/org.eclipse.fx.target.feature -->
+
 		<!-- https://mvnrepository.com/artifact/org.openjfx/javafx-graphics -->
 		<dependency>
 			<groupId>org.projectlombok</groupId>
