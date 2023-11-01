@@ -25,8 +25,7 @@
  * Main Visual
 ===================================================================*/
 #main_visual{
-	/*-fx-image: url("/1.png"); */
-
+	-fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.6), 10, 0, 0, 6);
 }
 
 #proceed_btn{

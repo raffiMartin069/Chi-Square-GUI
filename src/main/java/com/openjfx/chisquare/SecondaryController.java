@@ -2,8 +2,11 @@ package com.openjfx.chisquare;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
+import com.openjfx.animator.Animate;
+import com.openjfx.business.logic.ChaiTest;
 import com.openjfx.component.Selector;
 
 import javafx.event.ActionEvent;
@@ -20,16 +23,16 @@ public class SecondaryController implements Initializable{
 
     @FXML
     private CheckBox bothValue_box;
-    
+
     @FXML
     private ImageView toHome;
-    
+
     @FXML
     private TextField df_field;
-    
+
     @FXML
     private Button generate_btn;
-    
+
     @FXML
     private ImageView clear_inputs;
 
@@ -47,7 +50,9 @@ public class SecondaryController implements Initializable{
 
     @FXML
     private Label page_title;
-    
+
+    private Animate animator = new Animate();
+
     private static Selector selector = new Selector();
     @FXML
     void toBothValues(ActionEvent event) {
@@ -64,27 +69,35 @@ public class SecondaryController implements Initializable{
     	selector.toEnableCheckbox(pValue_box.isSelected(),bothValue_box, criticalValue_box);
     }
 
-	@Override
+    @Override
 	public void initialize(URL location, ResourceBundle resources) {
-		// TODO Auto-generated method stub
-		
+
 	}
-	
+
 	@FXML
     void generateChi(ActionEvent event) {
-		
+		var chaiTest = new ChaiTest();
+		chaiTest.setValueString(input_box.getText().toString());
+		chaiTest.setDfString(df_field.getText().toString());
+
+		if(chaiTest.ObservableStringSplitter() instanceof List<?>) {
+			System.out.println(chaiTest.ObservableStringSplitter());
+		}
+//		System.out.println(chaiTest.getDfString());
+		System.out.println(chaiTest.getValueString());
     }
-	
+
 	@FXML
     void toClearInput(MouseEvent event) {
+		animator.setImgImageView(clear_inputs);
+		animator.ThreeSixtyAnimation();
 		input_box.clear();
 		df_field.clear();
 		selector.clearCheckBox(bothValue_box, criticalValue_box, pValue_box);
     }
-	
+
 	@FXML
     void goHome(MouseEvent e) throws IOException {
 		App.setRoot("primary");
     }
-
 }

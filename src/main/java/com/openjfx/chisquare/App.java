@@ -1,17 +1,12 @@
 package com.openjfx.chisquare;
 
+import java.io.IOException;
+
 import javafx.application.Application;
-
-
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.ObjectInputFilter.Config;
-import java.util.Properties;
 
 public class App extends Application {
 
@@ -38,6 +33,6 @@ public class App extends Application {
     }
 
     public static void main(String[] args) {
-        launch();   
+        launch();
     }
 }

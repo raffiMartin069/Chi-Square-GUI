@@ -21,7 +21,7 @@
                <children>
                   <Pane fx:id="violet_pane" layoutX="7.0" prefHeight="14.0" prefWidth="467.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                   <TextField fx:id="input_box" layoutX="7.0" layoutY="7.0" prefHeight="25.0" prefWidth="467.0" promptText="e.g. 1, 2, 3, 4, 5" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="3.0" />
-                  <Pane fx:id="df_violetPane" layoutY="39.0" prefHeight="16.0" prefWidth="200.0" AnchorPane.leftAnchor="0.0" />
+                  <Pane fx:id="df_violetPane" layoutY="32.0" prefHeight="16.0" prefWidth="200.0" AnchorPane.leftAnchor="0.0" />
                   <TextField fx:id="df_field" layoutX="58.0" layoutY="46.0" promptText="e.g. 0.5" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" />
                </children>
                <VBox.margin>
@@ -53,20 +53,11 @@
                <children>
                   <HBox prefHeight="40.0" prefWidth="1280.0">
                      <children>
-                        <AnchorPane prefHeight="200.0" prefWidth="1280.0">
-                           <children>
-                              <ImageView fx:id="toHome" fitHeight="40.0" fitWidth="80.0" layoutX="560.0" layoutY="2.0" onMouseClicked="#goHome" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@img/2.png" />
-                                 </image>
-                              </ImageView>
-                              <ImageView fx:id="clear_inputs" fitHeight="40.0" fitWidth="80.0" layoutX="640.0" layoutY="1.0" onMouseClicked="#toClearInput" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@img/3.png" />
-                                 </image>
-                              </ImageView>
-                           </children>
-                        </AnchorPane>
+                        <ImageView fx:id="toHome" fitHeight="40.0" fitWidth="80.0" onMouseClicked="#goHome" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@img/2.png" />
+                           </image>
+                        </ImageView>
                      </children>
                   </HBox>
                </children></Pane>
@@ -105,12 +96,22 @@
             </VBox>
          </left>
          <center>
-            <VBox prefHeight="435.0" prefWidth="396.0" BorderPane.alignment="CENTER" />
-         </center>
-         <right>
-            <HBox fx:id="img_container" alignment="CENTER_LEFT" prefHeight="435.0" prefWidth="400.0" BorderPane.alignment="CENTER">
+            <VBox alignment="CENTER" prefHeight="435.0" prefWidth="396.0" BorderPane.alignment="CENTER">
                <children>
                   <ImageView fx:id="pValue_img" fitHeight="300.0" fitWidth="358.0" pickOnBounds="true" preserveRatio="true" />
+               </children></VBox>
+         </center>
+         <right>
+            <HBox fx:id="img_container" alignment="BOTTOM_RIGHT" prefHeight="435.0" prefWidth="400.0" BorderPane.alignment="CENTER">
+               <children>
+                  <ImageView fx:id="clear_inputs" fitHeight="118.0" fitWidth="235.0" onMouseClicked="#toClearInput" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@img/restart-arrow.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets bottom="10.0" />
+                     </HBox.margin>
+                  </ImageView>
                </children>
             </HBox>
          </right>

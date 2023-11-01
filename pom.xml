@@ -20,12 +20,6 @@
 
 		<!-- https://mvnrepository.com/artifact/org.openjfx/javafx-graphics -->
 		<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-			<version>1.18.30</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
 			<groupId>org.openjfx</groupId>
 			<artifactId>javafx-fxml</artifactId>
 			<version>21</version>
@@ -34,6 +28,14 @@
 			<groupId>org.openjfx</groupId>
 			<artifactId>javafx-controls</artifactId>
 			<version>21</version>
+		</dependency>
+		<!--
+		https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api -->
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-api</artifactId>
+			<version>5.10.0</version>
+			<scope>test</scope>
 		</dependency>
 	</dependencies>
 
@@ -60,15 +62,12 @@
 						<!-- Usage: mvn clean javafx:run -->
 						<id>default-cli</id>
 						<configuration>
+							<argLine>
+								--add-exports org.junit.platform.commons/org.junit.platform.commons.util=ALL-UNNAMED,
+								--add-exports org.junit.platform.commons/org.junit.platform.commons.logging=ALL-UNNAMED
+							</argLine>
 							<mainClass>com.openjfx.chisquare.App</mainClass>
 							<!--<executable>/usr/lib/jvm/java-17-openjdk-amd64/bin/java</executable>-->
-							<annotationProcessorPaths>
-								<path>
-									<groupId>org.projectlombok</groupId>
-									<artifactId>lombok</artifactId>
-									<version>1.18.30</version>
-								</path>
-							</annotationProcessorPaths>
 						</configuration>
 					</execution>
 				</executions>
