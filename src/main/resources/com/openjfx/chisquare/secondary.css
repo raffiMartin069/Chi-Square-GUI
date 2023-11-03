@@ -108,8 +108,14 @@
 }
 
 #btn_container{
-	-fx-padding: 5em 0 0 0;
+	-fx-padding: 0.5em 0 0 0;
 	-fx-pref-width: 150em;
+}
+
+#error_msg{
+	-fx-font-size: 1em;
+	-fx-pref-width: 30em;
+	-fx-text-fill: red;
 }
 
 #generate_btn:pressed{

@@ -12,13 +12,14 @@
 		<maven.compiler.source>11</maven.compiler.source>
 		<maven.compiler.target>11</maven.compiler.target>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<lombok.version>1.18.30</lombok.version>
+		
 	</properties>
 
 	<dependencies>
 		<!--https://mvnrepository.com/artifact/at.bestsolution.efxclipse.rt/org.eclipse.fx.target.feature -->
 
-		<!-- https://mvnrepository.com/artifact/org.openjfx/javafx-graphics -->
+		<!-- https://mvnrepository.com/artt/org.openjfx/javafx-graphics -->
+		
 		<dependency>
 			<groupId>org.openjfx</groupId>
 			<artifactId>javafx-fxml</artifactId>
@@ -38,10 +39,8 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
-
 	<build>
 		<plugins>
-
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>

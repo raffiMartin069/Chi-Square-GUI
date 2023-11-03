@@ -37,6 +37,7 @@
             </HBox>
             <VBox fx:id="btn_container" alignment="TOP_CENTER" prefHeight="0.0" prefWidth="480.0">
                <children>
+                  <Label fx:id="error_msg" alignment="CENTER" contentDisplay="CENTER" textAlignment="CENTER" />
                   <Button fx:id="generate_btn" mnemonicParsing="false" onAction="#generateChi" text="Generate" />
                </children>
             </VBox>

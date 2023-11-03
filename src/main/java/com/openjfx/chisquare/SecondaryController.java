@@ -1,8 +1,8 @@
 package com.openjfx.chisquare;
 
 import java.io.IOException;
+
 import java.net.URL;
-import java.util.List;
 import java.util.ResourceBundle;
 
 import com.openjfx.animator.Animate;
@@ -50,49 +50,61 @@ public class SecondaryController implements Initializable{
 
     @FXML
     private Label page_title;
+    
+    @FXML
+    private Label error_msg;
 
     private Animate animator = new Animate();
 
     private static Selector selector = new Selector();
+
+    private static ChaiTest chaiTest = new ChaiTest();
+    
     @FXML
     void toBothValues(ActionEvent event) {
     	selector.toEnableCheckbox(bothValue_box.isSelected(),pValue_box, criticalValue_box);
+    	System.out.println(chaiTest.bothCheckbox());
     }
 
     @FXML
     void toCriticalValue(ActionEvent event) {
     	selector.toEnableCheckbox(criticalValue_box.isSelected(),pValue_box, bothValue_box);
+    	System.out.println(chaiTest.criticalValueCheckbox());
     }
 
     @FXML
     void toPValue(ActionEvent event) {
     	selector.toEnableCheckbox(pValue_box.isSelected(),bothValue_box, criticalValue_box);
+    	System.out.println(chaiTest.pvalueCheckbox());
     }
 
     @Override
 	public void initialize(URL location, ResourceBundle resources) {
 
 	}
-
 	@FXML
     void generateChi(ActionEvent event) {
-		var chaiTest = new ChaiTest();
+//		chaiTest = new ChaiTest();
 		chaiTest.setValueString(input_box.getText().toString());
 		chaiTest.setDfString(df_field.getText().toString());
-
-		if(chaiTest.ObservableStringSplitter() instanceof List<?>) {
-			System.out.println(chaiTest.ObservableStringSplitter());
+		try {
+			if (chaiTest.dfToFloat() == chaiTest.dfToFloat() || 
+				chaiTest.valueToFloat() == chaiTest.valueToFloat()) {
+				error_msg.setText("");
+				System.out.println(chaiTest.dfToFloat());
+				System.out.println(chaiTest.valueToFloat());
+			}
+		} catch (Exception e) {
+			error_msg.setText("Only decimal and non-decimal numbers are allowed.");
 		}
-//		System.out.println(chaiTest.getDfString());
-		System.out.println(chaiTest.getValueString());
-    }
-
+	}
 	@FXML
     void toClearInput(MouseEvent event) {
 		animator.setImgImageView(clear_inputs);
 		animator.ThreeSixtyAnimation();
 		input_box.clear();
 		df_field.clear();
+		error_msg.setText("");
 		selector.clearCheckBox(bothValue_box, criticalValue_box, pValue_box);
     }
 
