@@ -63,40 +63,35 @@ public class SecondaryController implements Initializable{
     @FXML
     void toBothValues(ActionEvent event) {
     	selector.toEnableCheckbox(bothValue_box.isSelected(),pValue_box, criticalValue_box);
-    	System.out.println(chaiTest.bothCheckbox());
+    	String tick_Control = bothValue_box.isSelected() ? chaiTest.bothCheckbox() : "";
+    	System.out.println(tick_Control);
     }
 
     @FXML
     void toCriticalValue(ActionEvent event) {
     	selector.toEnableCheckbox(criticalValue_box.isSelected(),pValue_box, bothValue_box);
-    	System.out.println(chaiTest.criticalValueCheckbox());
+    	String tick_Control = criticalValue_box.isSelected() ? chaiTest.criticalValueCheckbox() : "";
+    	System.out.println(tick_Control);
     }
 
     @FXML
     void toPValue(ActionEvent event) {
     	selector.toEnableCheckbox(pValue_box.isSelected(),bothValue_box, criticalValue_box);
-    	System.out.println(chaiTest.pvalueCheckbox());
+    	String tick_Control = pValue_box.isSelected() ? chaiTest.pvalueCheckbox() : "";
+    	System.out.println(tick_Control);
     }
 
     @Override
 	public void initialize(URL location, ResourceBundle resources) {
-
+    	chaiTest.setStdError(error_msg);
+    	chaiTest.inputCharDisable(df_field);
+    	chaiTest.inputCharDisable(input_box);
 	}
 	@FXML
     void generateChi(ActionEvent event) {
-//		chaiTest = new ChaiTest();
 		chaiTest.setValueString(input_box.getText().toString());
 		chaiTest.setDfString(df_field.getText().toString());
-		try {
-			if (chaiTest.dfToFloat() == chaiTest.dfToFloat() || 
-				chaiTest.valueToFloat() == chaiTest.valueToFloat()) {
-				error_msg.setText("");
-				System.out.println(chaiTest.dfToFloat());
-				System.out.println(chaiTest.valueToFloat());
-			}
-		} catch (Exception e) {
-			error_msg.setText("Only decimal and non-decimal numbers are allowed.");
-		}
+		chaiTest.inputFilter();
 	}
 	@FXML
     void toClearInput(MouseEvent event) {

@@ -75,7 +75,7 @@
 #df_violetPane{
 	-fx-background-color: #8E75B8;
 	-fx-pref-width: 10em;
-	-fx-translate-y: 0.4em
+	-fx-translate-y: 1em
 }
 
 #degreeOf_FreedomLabel{
@@ -114,7 +114,7 @@
 
 #error_msg{
 	-fx-font-size: 1em;
-	-fx-pref-width: 30em;
+	-fx-pref-width: 50em;
 	-fx-text-fill: red;
 }
 
