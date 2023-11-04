@@ -1,6 +1,7 @@
 package com.openjfx.chisquare;
 
 import java.io.IOException;
+
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -8,9 +9,6 @@ import java.util.ResourceBundle;
 
 import com.openjfx.animator.Animate;
 
-import javafx.animation.Animation;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -30,9 +28,7 @@ public class PrimaryController implements Initializable{
     @FXML
     private Button proceed_btn;
 
-    private List<Image> imgArray;
-    private Timeline imageTimeline;
-    private Animate animate;
+    private Animate animate = new Animate();
 
     @FXML
     void toMainPage(ActionEvent event) throws IOException {
@@ -40,35 +36,25 @@ public class PrimaryController implements Initializable{
     }
 
     public void images() {
-    	imgArray = new ArrayList<>();
-    	animate = new Animate();
-
-    	String[] imageFileNames = {
-    	        "img/data-analysis.png",
-    	        "img/data-mining.png",
-    	        "img/quantum-computing.png",
-    	        "img/main-image.png"
-    	    };
-
-    	try {
-    		for (String string : imageFileNames) {
-				imgArray.add(new Image(getClass().getResourceAsStream(string)));
-			}
-			if (!imgArray.isEmpty()) {
-	            main_visual.setImage(imgArray.get(0));
-
-	            KeyFrame keyFrame = animate.imageTimeLine(imgArray, main_visual);
-	            imageTimeline = new Timeline();
-	            imageTimeline.setCycleCount(Animation.INDEFINITE);
-	            imageTimeline.getKeyFrames().add(keyFrame);
-	            imageTimeline.play();
-	        }
-		} catch (Exception e) {
-			System.out.println("Array is empty..." + e.getMessage());
-		}
+    List<Image> imgList = new ArrayList<>();
+    // Stores .png directory path.
+    String[] imageFileNames = {
+        "img/data-analysis.png",
+        "img/data-mining.png",
+        "img/quantum-computing.png",
+        "img/main-image.png"
+    };
+    // Loop through the directory path and stores to a List.
+    // Takes the resources from the Resource folder.
+    for (String fileName : imageFileNames) {
+        imgList.add(new Image(getClass().getResourceAsStream(fileName)));
+    }
+    // Calls a method from Animate Class which handles Time Line.
+    animate.imageAnimation(main_visual, imgList);
     }
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		// Initialize image to the UI.
 		images();
 	}
 }

@@ -1,9 +1,12 @@
 module com.openjfx.chisquare {
-    requires javafx.controls;
+	// Modular programming is used...
+	// Adds required dependencies to the project.
+	// opens a package to make it visible to whole project.
+	// exports a project to make it accessible and visible to entire project.
+	requires javafx.controls;
     requires javafx.fxml;
     requires transitive javafx.graphics;
 	requires javafx.base;
-	// add static otherwise exception will be thrown, src: https://github.com/projectlombok/lombok/issues/1723#issuecomment-405934454.
 	requires java.desktop;
     opens com.openjfx.chisquare to javafx.fxml;
     opens com.openjfx.component;

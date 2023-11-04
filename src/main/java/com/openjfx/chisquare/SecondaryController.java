@@ -59,7 +59,9 @@ public class SecondaryController implements Initializable{
     private static Selector selector = new Selector();
 
     private static ChaiTest chaiTest = new ChaiTest();
-    
+
+	// Passes varargs to Selector Class for evaluation if Check Boxes are checked.
+    // Disables all other Check Boxes if found that a Check Box is already cheked.
     @FXML
     void toBothValues(ActionEvent event) {
     	selector.toEnableCheckbox(bothValue_box.isSelected(),pValue_box, criticalValue_box);
@@ -80,19 +82,21 @@ public class SecondaryController implements Initializable{
     	String tick_Control = pValue_box.isSelected() ? chaiTest.pvalueCheckbox() : "";
     	System.out.println(tick_Control);
     }
-
+    // Initializes data to be used.
     @Override
 	public void initialize(URL location, ResourceBundle resources) {
     	chaiTest.setStdError(error_msg);
     	chaiTest.inputCharDisable(df_field);
     	chaiTest.inputCharDisable(input_box);
 	}
+    // Handles button even, filters the keyboard characters, gets the user input.
 	@FXML
     void generateChi(ActionEvent event) {
 		chaiTest.setValueString(input_box.getText().toString());
 		chaiTest.setDfString(df_field.getText().toString());
 		chaiTest.inputFilter();
 	}
+	// Clears all fields.
 	@FXML
     void toClearInput(MouseEvent event) {
 		animator.setImgImageView(clear_inputs);
@@ -102,7 +106,6 @@ public class SecondaryController implements Initializable{
 		error_msg.setText("");
 		selector.clearCheckBox(bothValue_box, criticalValue_box, pValue_box);
     }
-
 	@FXML
     void goHome(MouseEvent e) throws IOException {
 		App.setRoot("primary");
