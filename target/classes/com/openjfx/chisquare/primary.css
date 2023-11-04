@@ -1,0 +1,41 @@
+/*=================================================================
+ * Base Design
+===================================================================*/
+#primary_border{
+	-fx-pref-width: 1280;
+	-fx-pref-height: 720;
+}
+
+.label{
+	-fx-font-family: 'Segoe UI', "Helvetica", "sans-serif";
+	-fx-font-size: 16px;
+	-fx-padding: 16px 16px 16px 16px;
+}
+
+.button{
+	-fx-font-size: 16px;
+	-fx-font-family: 'Segoe UI', "sans-serif";
+	-fx-pref-width: 100%;
+}
+
+#primary_nav{
+	-fx-background-color: #8E75B8;
+}
+/*=================================================================
+ * Main Visual
+===================================================================*/
+#main_visual{
+	-fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.6), 10, 0, 0, 6);
+}
+
+#proceed_btn{
+	-fx-font-size: 1.5em;
+	-fx-pref-width: 15em;
+	-fx-text-fill: #ffffff;
+	-fx-background-color: #8E75B8;
+	-fx-background-radius: 0.5em;
+	-fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.6), 10, 0, 0, 6); 
+}
+#proceed_btn:pressed{
+	-fx-background-color: #5E4E7B;
+}
