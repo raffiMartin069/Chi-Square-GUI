@@ -56,8 +56,10 @@
 	-fx-pref-width: 450px;
 }
 
-#violet_pane{
+#obsVal_pane{
 	-fx-background-color: #8E75B8;
+	-fx-pref-height: .5em;
+	-fx-pref-width: 400px;
 }
 
 #inputField_pane{
@@ -75,13 +77,13 @@
 #df_violetPane{
 	-fx-background-color: #8E75B8;
 	-fx-pref-width: 10em;
-	-fx-translate-y: 1em
+	-fx-translate-y: 1.5em
 }
 
-#degreeOf_FreedomLabel{
+#alpha_leveel{
 	-fx-font-size: 1.5em;
 	-fx-alignment: center-right;
-	-fx-padding: 1.2em 0.4em 0 0;
+	-fx-padding: 0 1em 0 0;
 }
 /*=================================================================
  * Checkbox Container

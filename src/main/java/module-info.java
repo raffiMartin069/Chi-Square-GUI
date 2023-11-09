@@ -8,7 +8,11 @@ module com.openjfx.chisquare {
     requires transitive javafx.graphics;
 	requires javafx.base;
 	requires java.desktop;
+	requires org.json;
+	requires java.net.http;
+	requires com.google.gson;
     opens com.openjfx.chisquare to javafx.fxml;
     opens com.openjfx.component;
+    opens com.openjfx.business.logic;
     exports com.openjfx.chisquare;
 }

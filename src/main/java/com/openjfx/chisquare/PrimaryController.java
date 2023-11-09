@@ -1,7 +1,6 @@
 package com.openjfx.chisquare;
 
 import java.io.IOException;
-
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +31,7 @@ public class PrimaryController implements Initializable{
 
     @FXML
     void toMainPage(ActionEvent event) throws IOException {
-        App.setRoot("secondary");
+        App.setRoot("secondary2");
     }
 
     public void images() {

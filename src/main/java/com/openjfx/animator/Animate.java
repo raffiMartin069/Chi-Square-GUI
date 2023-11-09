@@ -1,6 +1,5 @@
 package com.openjfx.animator;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javafx.animation.Animation;
