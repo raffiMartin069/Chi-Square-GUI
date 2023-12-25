@@ -1,16 +1,39 @@
 package com.openjfx.business.logic;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.io.IOException;
+import java.net.ConnectException;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.google.gson.Gson;
 
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
+import javafx.stage.StageStyle;
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
+/*
+ * IMPORTANT COMMENT:
+ * 	Some methods are marked as deprecated. They can be used but are discouraged.
+ * The methods are currently present and the GUI components (i.e. Check boxes) are 
+ * are still present, they are can still be used but not functional. They will be
+ * removed soon for cleaning purposes and improve delivery to end users. 
+ * 
+ * 
+ * Deprecation Date: 12/19/2023
+ * Programmer: Rafael D. Martinez
+ * 
+ * 
+ * */ 
 public class ChaiTest {
 	// Handles the logic behind user interaction to input fields.
 	// Used to set values that will initialize in the Secondary Class.
@@ -18,12 +41,9 @@ public class ChaiTest {
 	// Implements error handling.
 	private String valueString;
 	private String dfString;
-	private CheckBox checkBox_Value;
+	
 	private String graphType;
-	private float dfValue;
-	private float observableValue;
 	private Label std_error;
-	private List<Float> observableList;
 	private float result[][];
 
 	public ChaiTest() {}
@@ -31,18 +51,16 @@ public class ChaiTest {
 			float dfValue, float observableValue, CheckBox checkBox_Value, float degreeofFreedom,
 			Label std_error, float result[][], String graphType) {
 		this.valueString = valueString;
-		this.observableValue = observableValue;
 		this.dfString = dfString;
-		this.dfValue = dfValue;
 		this.std_error = std_error;
-		this.checkBox_Value = checkBox_Value;
-		this.observableList = new ArrayList<>();
 		this.result = result;
 		this.graphType = graphType;
 	}
+	@Deprecated
 	public String getGraphType() {
 		return graphType;
 	}
+	@Deprecated
 	public void setGraphType(String graphType) {
 		this.graphType = graphType;
 	}
@@ -51,9 +69,20 @@ public class ChaiTest {
 	public String getValueString() {
 		return valueString.toUpperCase();
 	}
-
+	
+	public void exceptionAlert() {
+		var alert = new Alert(AlertType.WARNING, "Please enter a valid input.");
+		alert.setTitle("Invalid Input.");
+		alert.headerTextProperty().setValue(null);
+		alert.initStyle(StageStyle.UTILITY);
+		alert.show();
+	}
 	public void setValueString(String valueString) {
-		this.valueString = valueString;
+		try {
+			this.valueString = valueString;	
+		}catch (NullPointerException e) {
+			exceptionAlert();
+		}
 	}
 
 	public String getDfString() {
@@ -61,7 +90,12 @@ public class ChaiTest {
 	}
 
 	public void setDfString(String dfString) {
-		this.dfString = dfString;
+		try {
+			this.dfString = dfString;	
+		}catch (NullPointerException e) {
+			exceptionAlert();
+		}
+		
 	}
 
 	public Label getStdError() {
@@ -72,49 +106,19 @@ public class ChaiTest {
 	public void setStdError(Label std_error) {
 		this.std_error = std_error;
 	}
-	// Converts String to Float from input field.
-	// Makes Degree of Freedom become a Float instead of String.
-	public float dfToFloat() {
-		return Float.parseFloat(this.dfString);
-	}
 	// A place holder to be triggered when converted to JSON.
 	// Handled in the server to provide necessary graph and results.
+	@Deprecated
 	public String bothCheckbox() {
 		return "Both";
 	}
+	@Deprecated
 	public String pvalueCheckbox() {
-		return "P-value";
+		return "P-Value";
 	}
+	@Deprecated
 	public String criticalValueCheckbox() {
 		return "Critical Value";
-	}
-	// Converts String to Float for Observable Value field.
-	// Splits values into comma separated values (CSV).
-	// Stores converted values into a List.
-	public List<Float> valueToFloat() {
-	    String input = this.valueString;
-	    String[] splitValues = input.split(",\\s*"); // Split the string by commas and optional spaces
-	    observableList = new ArrayList<>();
-	    for (String value : splitValues) {
-	    	float floatValue = Float.parseFloat(value);
-            this.observableList.add(floatValue);
-	    }
-	    return this.observableList;
-	}
-	// Highly unlikely to be used. Implemented to mitigate possible errors.
-	// In case of unwanted errors an custom error will be thrown.
-	// Checks if user inputs legal characters i.e numbers, decimals and commas.
-	public void inputFilter() {
-		try {
-			if (this.dfToFloat() == this.dfToFloat() ||
-					this.valueToFloat() == this.valueToFloat()) {
-				this.std_error.setText("");
-				System.out.println(this.dfToFloat());
-				System.out.println(this.valueToFloat());
-			}
-		} catch (Exception e) {
-			this.std_error.setText("Only decimal and non-decimal numbers are allowed or field can not be empty.");
-		}
 	}
 	// Disables other sorts of characters.
 	// Only allows numbers from 0 --> 9, dot, and comma.
@@ -123,8 +127,8 @@ public class ChaiTest {
 	// Filter set in the body of Lambda.
 	public void inputCharDisable(TextArea a) {
 		a.addEventFilter(KeyEvent.KEY_TYPED, event -> {
-		    String character = event.getCharacter();
-		    String pattern = "[0-9., ,\n]";
+		    var character = event.getCharacter();
+		    var pattern = "[0-9., ,\n]";
 		    if (!character.matches(pattern)) {
 		        event.consume();
 		    }
@@ -160,12 +164,45 @@ public class ChaiTest {
 		    }
 		});
 	}
-	// Will be used to send a JSON value to local server.
-	// Gson dependency used to convert 2D array to Json 2D array.
+	
+	// Map different results using Map class.
 	@Override
 	public String toString() {
-		var gson = new Gson();
-		String jsonArray = gson.toJson(this.result);
-		return "Chai-Test [observable_value "+jsonArray+", degree_of_freedom = "+this.dfToFloat()+", value = "+this.getGraphType()+"]";
+	    Gson gson = new Gson();
+	    Map<String, Object> map = new HashMap<>();
+	    map.put("observable_value", this.result);
+	    map.put("degree_of_freedom", this.dfString != null ? this.dfString.toUpperCase() : "N/A");
+	    //map.put("graph_type", this.getGraphType());
+	    return gson.toJson(map);
 	}
+	public void sendData() {
+	    OkHttpClient client = new OkHttpClient();
+
+	    MediaType JSON = MediaType.get("application/json; charset=utf-8");
+	    String jsonString = this.toString();
+	    System.out.println("Sending JSON: " + jsonString); // Print the JSON string
+	    RequestBody body = RequestBody.create(jsonString, JSON);
+
+	    Request request = new Request.Builder()
+	    	    .url("http://127.0.0.1:5000/receive-data/")
+	    	    .post(body)
+	    	    .header("Content-Type", "application/json; charset=utf-8") // Explicitly set the header
+	    	    .build();
+
+	    try (Response response = client.newCall(request).execute()) {
+	        if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
+	        System.out.println(response.body().string());
+	    } catch (ConnectException e) {
+			var alert = new Alert(AlertType.ERROR, "Something went wrong. Try again later.");
+			alert.setTitle("Unable to connect.");
+			alert.headerTextProperty().setValue(null);
+			alert.initStyle(StageStyle.UTILITY);
+			alert.show();
+		} catch (NullPointerException e) {
+			exceptionAlert();
+		}catch (IOException e) {
+	        e.printStackTrace();
+	    } 
+	}
+
 }

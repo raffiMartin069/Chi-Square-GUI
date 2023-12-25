@@ -1,8 +1,9 @@
 module-info.class
-com\openjfx\flask\Flask.class
 com\openjfx\chisquare\PrimaryController.class
+com\openjfx\business\logic\ServerData.class
 com\openjfx\business\logic\ChaiTest.class
 com\openjfx\chisquare\SecondaryController2.class
 com\openjfx\component\Selector.class
+com\openjfx\flask\Fetch.class
 com\openjfx\chisquare\App.class
 com\openjfx\animator\Animate.class

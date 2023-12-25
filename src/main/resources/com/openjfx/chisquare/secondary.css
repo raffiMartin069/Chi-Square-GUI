@@ -140,3 +140,8 @@
 	/*-fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0, 0, 3);*/
 	-fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0, 2, .3);
 }
+
+#font_Style{
+	-fx-font-family: 'Segoe UI', "Helvetica", "sans-serif";
+	-fx-font-size: 16px;
+}

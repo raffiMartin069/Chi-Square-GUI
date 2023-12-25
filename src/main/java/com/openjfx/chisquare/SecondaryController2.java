@@ -1,13 +1,14 @@
 package com.openjfx.chisquare;
 
 import java.io.IOException;
+
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import com.google.gson.Gson;
 import com.openjfx.animator.Animate;
 import com.openjfx.business.logic.ChaiTest;
 import com.openjfx.component.Selector;
+import com.openjfx.flask.Fetch;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -45,6 +46,9 @@ public class SecondaryController2 implements Initializable{
 
     @FXML
     private CheckBox criticalValue_box;
+    
+    @FXML
+    private ImageView pValue_img;
 
     @FXML
     private CheckBox pValue_box;
@@ -54,6 +58,20 @@ public class SecondaryController2 implements Initializable{
 
     @FXML
     private Label error_msg;
+    /*============================
+     * 	Labels as for final Result
+     * ===========================*/
+    @FXML
+    private Label dof_result;
+    
+    @FXML
+    private Label chi_result;
+    
+    @FXML
+    private Label av_result;
+    
+    @FXML
+    private Label hypothesis;
 
     private Animate animator = new Animate();
 
@@ -63,6 +81,8 @@ public class SecondaryController2 implements Initializable{
 
 	// Passes varargs to Selector Class for evaluation if Check Boxes are checked.
     // Disables all other Check Boxes if found that a Check Box is already cheked.
+    
+    @Deprecated
     @FXML
     void toBothValues(ActionEvent event) {
     	selector.toEnableCheckbox(bothValue_box.isSelected(),pValue_box, criticalValue_box);
@@ -70,15 +90,17 @@ public class SecondaryController2 implements Initializable{
     	chaiTest.setGraphType("Both");
     	System.out.println(tick_Control);
     }
-
+    
+    @Deprecated
     @FXML
     void toCriticalValue(ActionEvent event) {
     	selector.toEnableCheckbox(criticalValue_box.isSelected(),pValue_box, bothValue_box);
     	String tick_Control = criticalValue_box.isSelected() ? chaiTest.criticalValueCheckbox() : "";
-    	chaiTest.setGraphType("CriticalValue");
+    	chaiTest.setGraphType("Critical Value");
     	System.out.println(tick_Control);
     }
-
+    
+    @Deprecated
     @FXML
     void toPValue(ActionEvent event) {
     	selector.toEnableCheckbox(pValue_box.isSelected(),bothValue_box, criticalValue_box);
@@ -92,24 +114,64 @@ public class SecondaryController2 implements Initializable{
     	chaiTest.setStdError(error_msg);
     	chaiTest.inputCharDisable(df_field);
     	chaiTest.inputCharDisable(observable_input);
+    	disabledComponents();
+    	setupFieldListeners();
 	}
     // Handles button even, filters the keyboard characters, gets the user input.
-	@FXML
-    void generateChi(ActionEvent event) {
-		chaiTest.inputCharDisable(observable_input);
-		chaiTest.setDfString(df_field.getText().toString());
-		String inputText = observable_input.getText();
-		float[][] test = chaiTest.parseTextAreaInput(inputText);
+    @FXML
+    void generateChi(ActionEvent event) throws Exception {
+        chaiTest.inputCharDisable(observable_input);
+        chaiTest.setDfString(df_field.getText().toString());
+        String inputText = observable_input.getText();
+        float[][] test = chaiTest.parseTextAreaInput(inputText);
+        
+        // debugger
+        for(float[] testing : test) {
+            for(float disp : testing) {
+                System.out.print(disp+", ");
+            }
+            System.out.println();
+        }
+        chaiTest.sendData();
+        SetResult();
+    }
+    private void disabledComponents() {
+    	pValue_box.setDisable(true);
+    	criticalValue_box.setDisable(true);
+    	bothValue_box.setDisable(true);
+    	generate_btn.setDisable(true);
+    }
+    private void buttonChecker() {
+        if (df_field.getText().isEmpty() || observable_input.getText().isEmpty()) {
+            generate_btn.setDisable(true);
+        } else {
+            generate_btn.setDisable(false);
+        }
+    }
+    private void setupFieldListeners() {
+        // Add a listener for df_field
+        df_field.textProperty().addListener((observable, oldValue, newValue) -> {
+            buttonChecker();
+        });
 
-		for(float[] testing : test) {
-			for(float disp : testing) {
-				System.out.print(disp+", ");
-			}
-			System.out.println();
+        // Add a listener for observable_input
+        observable_input.textProperty().addListener((observable, oldValue, newValue) -> {
+            buttonChecker();
+        });
+    }
+    private void SetResult() {
+    	var finalData = new Fetch();
+    	try {
+			finalData.initializeCall();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
-		var tester = chaiTest.toString();
-		System.out.println(new Gson().toJson(tester));
-	}
+    	chi_result.setText("Chi Square Test: "+finalData.ChiResult());
+    	dof_result.setText("Degree of Freedom: "+finalData.DofResult());
+    	av_result.setText("P-Value: "+finalData.PvalueResult());
+    	hypothesis.setText("Hypothesis Result: "+finalData.hypothesiString());
+    	pValue_img.setImage(finalData.matplotlibView());
+    }
 	// Clears all fields.
 	@FXML
     void toClearInput(MouseEvent event) {
@@ -117,8 +179,14 @@ public class SecondaryController2 implements Initializable{
 		animator.ThreeSixtyAnimation();
 		observable_input.clear();
 		df_field.clear();
-		error_msg.setText("");
-		selector.clearCheckBox(bothValue_box, criticalValue_box, pValue_box);
+		error_msg.setText(null);
+		// Feature is deprecated, for the meantime I comment the check boxes.
+		//selector.clearCheckBox(bothValue_box, criticalValue_box, pValue_box);
+		dof_result.setText(null);
+		chi_result.setText(null);
+		av_result.setText(null);
+		hypothesis.setText(null);
+		pValue_img.setImage(null);
     }
 	@FXML
     void goHome(MouseEvent e) throws IOException {

@@ -11,6 +11,7 @@ module com.openjfx.chisquare {
 	requires org.json;
 	requires java.net.http;
 	requires com.google.gson;
+	requires okhttp3;
     opens com.openjfx.chisquare to javafx.fxml;
     opens com.openjfx.component;
     opens com.openjfx.business.logic;
