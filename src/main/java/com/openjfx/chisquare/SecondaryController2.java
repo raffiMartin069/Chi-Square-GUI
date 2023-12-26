@@ -1,8 +1,11 @@
 package com.openjfx.chisquare;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
-
+import java.io.ObjectInputStream.GetField;
 import java.net.URL;
+import java.nio.file.Files;
 import java.util.ResourceBundle;
 
 import com.openjfx.animator.Animate;
@@ -10,16 +13,19 @@ import com.openjfx.business.logic.ChaiTest;
 import com.openjfx.component.Selector;
 import com.openjfx.flask.Fetch;
 
+import javafx.application.HostServices;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.FileChooser;
 
 public class SecondaryController2 implements Initializable{
 
@@ -72,6 +78,10 @@ public class SecondaryController2 implements Initializable{
     
     @FXML
     private Label hypothesis;
+    
+    @FXML
+    private Hyperlink pdf_result;
+
 
     private Animate animator = new Animate();
 
@@ -135,6 +145,10 @@ public class SecondaryController2 implements Initializable{
         chaiTest.sendData();
         SetResult();
     }
+    @FXML
+    void open_browser(ActionEvent event) {
+    	// Open a document to download
+    }
     private void disabledComponents() {
     	pValue_box.setDisable(true);
     	criticalValue_box.setDisable(true);
@@ -171,10 +185,41 @@ public class SecondaryController2 implements Initializable{
     	av_result.setText("P-Value: "+finalData.PvalueResult());
     	hypothesis.setText("Hypothesis Result: "+finalData.hypothesiString());
     	pValue_img.setImage(finalData.matplotlibView());
+    	pdf_result.setText("Click here to open PDF.");
+    	
+    	File pdf = finalData.pdfResult();
+    	pdf_result.setOnAction(event -> {
+            if (pdf != null) {
+                downloadPdf(pdf);
+            } else {
+                // Handle the case when the PDF file is null (optional)
+                System.out.println("PDF file is null");
+            }
+        });
     }
-	// Clears all fields.
+
+    private void downloadPdf(File pdfFile) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Save PDF File");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("PDF Files", "*.pdf"));
+        File selectedFile = fileChooser.showSaveDialog(null);
+
+        if (selectedFile != null) {
+            savePdfToFile(pdfFile, selectedFile);
+        }
+    }
+
+    private void savePdfToFile(File sourceFile, File destinationFile) {
+        try (FileOutputStream outputStream = new FileOutputStream(destinationFile)) {
+            Files.copy(sourceFile.toPath(), outputStream);
+            System.out.println("File saved successfully: " + destinationFile.getAbsolutePath());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 	@FXML
     void toClearInput(MouseEvent event) {
+		// Clears all fields.
 		animator.setImgImageView(clear_inputs);
 		animator.ThreeSixtyAnimation();
 		observable_input.clear();
@@ -187,6 +232,7 @@ public class SecondaryController2 implements Initializable{
 		av_result.setText(null);
 		hypothesis.setText(null);
 		pValue_img.setImage(null);
+		pdf_result.setText(null);
     }
 	@FXML
     void goHome(MouseEvent e) throws IOException {

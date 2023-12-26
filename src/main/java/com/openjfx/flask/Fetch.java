@@ -14,6 +14,7 @@ import javafx.stage.StageStyle;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.ConnectException;
 import java.util.ArrayList;
@@ -67,6 +68,8 @@ public class Fetch {
             SERVERDATA.setpValue(jsonObject.get("p_value").getAsDouble());
             SERVERDATA.setExpectedValue(eVList);
             SERVERDATA.setHypothesisResult(jsonObject.get("hypothesis").getAsString());
+            SERVERDATA.setPdf64bitString(jsonObject.get("pdf_report").getAsString());
+            
     	}catch (NullPointerException e) {
 			var error_Handler = new ChaiTest();
 			error_Handler.exceptionAlert();
@@ -93,4 +96,7 @@ public class Fetch {
     public String hypothesiString() {
     	return SERVERDATA.getHypothesisResult();
     }
+    public File pdfResult() {
+		return SERVERDATA.filePdfDecoder();
+	}
 }
