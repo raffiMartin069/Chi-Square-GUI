@@ -25,6 +25,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import javafx.stage.FileChooser;
 
 public class SecondaryController2 implements Initializable{
@@ -64,6 +65,7 @@ public class SecondaryController2 implements Initializable{
 
     @FXML
     private Label error_msg;
+    
     /*============================
      * 	Labels as for final Result
      * ===========================*/
@@ -81,6 +83,12 @@ public class SecondaryController2 implements Initializable{
     
     @FXML
     private Hyperlink pdf_result;
+    
+    /*============================
+     * 	Checkbox Container
+     * ===========================*/
+    @FXML
+    private HBox checkbox_container;
 
 
     private Animate animator = new Animate();
@@ -126,6 +134,7 @@ public class SecondaryController2 implements Initializable{
     	chaiTest.inputCharDisable(observable_input);
     	disabledComponents();
     	setupFieldListeners();
+    	checkbox_container.setVisible(false);	// Container for check boxes is hidden due to Deprecation.
 	}
     // Handles button even, filters the keyboard characters, gets the user input.
     @FXML
